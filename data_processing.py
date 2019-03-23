@@ -21,9 +21,9 @@ if __name__ == "__main__":
     y_data = dataset_indexed['AdoptionSpeed']
     # drop unwanted columns
     columns_to_keep = ['Type', 'Age', 'Breed1','Breed2','Gender', 'Color1', 'Color2', 'Color3', 'MaturitySize', 'FurLength', 'Vaccinated', 'Dewormed', 'Sterilized', 'Health', 'Quantity', 'Fee','State','PhotoAmt']
-    cols_not_to_encode = ['Age', 'PhotoAmt', 'Fee', 'Quantity']
     x_data = dataset_indexed.loc[:, columns_to_keep]
     # normalize non-categorical columns
+    cols_not_to_encode = ['Age', 'PhotoAmt', 'Fee', 'Quantity']
     cols = x_data.loc[:, cols_not_to_encode]
     x_data.loc[:, cols_not_to_encode] = cols.subtract(cols.mean()).divide(cols.std())
     # encode categorical columns
@@ -38,7 +38,7 @@ if __name__ == "__main__":
     # split data into train and test sets
     x_t1_train, x_t1_test, y_t1_train, y_t1_test = train_test_split(x_t1, y_t1, test_size=0.20, stratify=y_t1)
     x_t2_train, x_t2_test, y_t2_train, y_t2_test = train_test_split(x_t2, y_t2, test_size=0.20, stratify=y_t2)
-    # join test and training sets
+    # join cat and dog sets
     x_train = x_t1_train.append(x_t2_train)
     x_test = x_t1_test.append(x_t2_test)
     y_train = y_t1_train.append(y_t2_train)
