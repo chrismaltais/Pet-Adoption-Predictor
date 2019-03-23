@@ -71,6 +71,17 @@ if __name__ == "__main__":
 
     # Not normalize because data is categorical
 
+    # Handling JSON Data:
+    # Create dataframe w magnitude and score and pet_id
+    # Every row might not have 
+
+    # Questions to Prof:
+    # Average
+    # One final big model
+    # Take each NN as an input and get result
+
+
+
 
 
 
