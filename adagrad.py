@@ -19,9 +19,9 @@ if __name__ == "__main__":
     y_test = pd.read_csv('y_test.csv', index_col=0)
     # instantiate model
     model = Sequential()
-    # add hidden layer with 32 nodes and soft-sign activation
-    model.add(Dense(50, input_dim=x_train.iloc[0].size))
-    model.add(Activation('softsign'))
+    # add hidden layer with 50 nodes and soft-sign activation
+    model.add(Dense(100, input_dim=x_train.iloc[0].size))
+    model.add(Activation('relu'))
     # add output layer with 5 nodes and soft-max activation
     model.add(Dense(5))
     model.add(Activation('softmax'))
@@ -35,4 +35,4 @@ if __name__ == "__main__":
     print(model.evaluate(x_test.values, y_test_oh))
     y_predict = model.predict(x_test)
     y_decode = decode_output(y_predict)
-    print(cohen_kappa_score(y_decode, y_test))
+    print(cohen_kappa_score(y_test, y_decode, weights='quadratic'))

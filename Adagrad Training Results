@@ -1,0 +1,53 @@
+Training Results of V3
+
+1.
+    model.add(Dense(10, input_dim=len(x_train_std[0])))
+    model.add(Activation('softsign'))
+    model.add(Dense(5))
+    model.add(Activation('softmax'))
+    model.compile(optimizer='adagrad', loss='categorical_crossentropy', metrics=['accuracy'])
+
+	Epoch 50/50
+	11993/11993 [==============================] - 9s 721us/step - loss: 1.3353 - acc: 0.4099
+	3000/3000 [==============================] - 0s 29us/step
+	[1.3686972017288208, 0.38266666650772097]
+	0.28072976788522574
+
+2.
+    model.add(Dense(50, input_dim=len(x_train_std[0])))
+    model.add(Activation('softsign'))
+    model.add(Dense(5))
+    model.add(Activation('softmax'))
+    model.compile(optimizer='adagrad', loss='categorical_crossentropy', metrics=['accuracy'])
+
+	Epoch 50/50
+	11993/11993 [==============================] - 12s 1ms/step - loss: 1.3064 - acc: 0.4247
+	3000/3000 [==============================] - 0s 29us/step
+	[1.3673400182723998, 0.382]
+	0.2920615514163222
+
+3.
+	model.add(Dense(100, input_dim=len(x_train_std[0])))
+    model.add(Activation('softsign'))
+    model.add(Dense(5))
+    model.add(Activation('softmax'))
+    model.compile(optimizer='adagrad', loss='categorical_crossentropy', metrics=['accuracy'])
+
+	Epoch 50/50
+	11993/11993 [==============================] - 13s 1ms/step - loss: 1.2909 - acc: 0.4328
+	3000/3000 [==============================] - 0s 34us/step
+	[1.3682985537846883, 0.38533333349227905]
+	0.3044554455445545
+
+4. 
+	model.add(Dense(100, input_dim=len(x_train_std[0])))
+    model.add(Activation('relu'))
+    model.add(Dense(5))
+    model.add(Activation('softmax'))
+    model.compile(optimizer='adagrad', loss='categorical_crossentropy', metrics=['accuracy'])
+
+    Epoch 50/50
+	11993/11993 [==============================] - 12s 965us/step - loss: 1.1927 - acc: 0.5070
+	3000/3000 [==============================] - 0s 29us/step
+	[1.3692845118840535, 0.3953333333333333]
+	0.3136060059474479
