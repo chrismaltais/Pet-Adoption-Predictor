@@ -1,8 +1,14 @@
+# Author: Chris Maltais
+# SN: 10155183
+# Description: This file uses a simple Multilayer Perceptron Model with a Backpropagation Learning algorithm.
+# This file can be run using additional NLP information obtained from Google - please see README for more details.
+
 import os
 import json
 import pandas as pd
 import numpy as np
 import sys
+
 # Import the model
 from sklearn.preprocessing import StandardScaler
 from sklearn.neural_network import MLPClassifier
@@ -10,13 +16,14 @@ from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report, cohen_kappa_score
 from matplotlib import pyplot as plt
 
-# Suppress Warnings
+# Suppress Warnings (for development purposes)
 def warn(*args, **kwargs):
     pass
 import warnings
 warnings.warn = warn
 
 # Returns Dataframe of Pet_ID, magnitude, score
+# aka get sentiment analysis from each individual .json file!
 def get_sentiment_values(folderpath):
     data = []
     for filename in os.listdir(folderpath):
@@ -39,6 +46,8 @@ def get_sentiment_values(folderpath):
     results.set_index('PetID', inplace=True)
     return results
 
+# This code was run to obtain the ideal hyperparameter values for the MLP
+# It iterates over a subset of parameter values and stores the values that provide the highest weighted kappa score
 def get_ideal_HP(x_train, x_test, y_train, y_test, max_iterations, HL_size, learning_rate_init, learning_rate, momentum):
     hyper_params = {
         "accuracy": 0,
@@ -96,6 +105,7 @@ def get_ideal_HP(x_train, x_test, y_train, y_test, max_iterations, HL_size, lear
                         }
     return hyper_params
 
+# Used to write the hyper parameter values, weighted kappa value and score to a text file in results/ folder
 def write_HP_to_file(accuracy, kappa, layer_size, learning_rate_init, learning_rate, momentum):
     filename = 'results/hyperparameter_tuning.txt'
     os.makedirs(os.path.dirname(filename), exist_ok=True)
@@ -105,6 +115,7 @@ def write_HP_to_file(accuracy, kappa, layer_size, learning_rate_init, learning_r
             .format(accuracy=accuracy, kappa=kappa, layer_size=layer_size, learning_rate_init=learning_rate_init, learning_rate=learning_rate, momentum=momentum)
         )
 
+# Main script
 if __name__ == "__main__":
     # Get Training Data
     x_train = pd.read_csv('x_train.csv', index_col=0)
@@ -126,17 +137,9 @@ if __name__ == "__main__":
 
             x_train.replace(to_replace=float('NaN'), value=0, inplace=True)
             x_test.replace(to_replace=float('NaN'), value=0, inplace=True)
-            
-    
-    
-    # Find number of each type of adoption
-    # print(len(dataset_train[dataset_train.AdoptionSpeed == 0]))
 
-    # Show correlation table
-    # plt.matshow(x_train.corr())
-    # plt.show()
-
-    # Tune hyper-parameters
+    ###### The following block of commented code was used to obtain the hyper parameters 
+    ###### with the highest weighted kappa score
     # HL_size = [2, 5, 10, 15, 50, 100]
     # learning_rate_init = [0.001, 0.01, 0.05, 0.1, 0.5, 0.9]
     # learning_rate = ['constant', 'adaptive']
@@ -155,8 +158,9 @@ if __name__ == "__main__":
     # )
 
     # print(ideal_HP)
+    ###### 
 
-    # Initializing the multilayer perceptron
+    # Initializing the multilayer perceptron with values obtained from HP tuning above
     mlp = MLPClassifier(
         hidden_layer_sizes=(5), 
         solver='sgd', 
@@ -168,9 +172,6 @@ if __name__ == "__main__":
 
     # Fit the model
     mlp.fit(x_train, y_train)
-
-    print(mlp.out_activation_)
-    print(mlp.n_layers_)
 
     predicted_results = mlp.predict(x_test)
 
@@ -196,9 +197,6 @@ if __name__ == "__main__":
     # Number 2 = 4037
     # Number 1 = 3090
     # Number 0 = 410
-
-    # PCA
-    # Correlation Matrix
 
 
 
