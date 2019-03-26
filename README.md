@@ -19,7 +19,7 @@ Windows:
 Import required libraries:
 `pip3 install -r requirements.txt`
 
-# Requirements - MLP.py
+# Requirements - adagrad.py
 - Python 3.6
 - scipy (1.2.1)
 - numpy (1.16.2)
