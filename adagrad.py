@@ -31,7 +31,7 @@ if __name__ == "__main__":
     y_train_oh = to_categorical(y_train.values, num_classes=5)
     y_test_oh = to_categorical(y_test.values, num_classes=5)
     # train the model
-    model.fit(x_train.values, y_train_oh, epochs=50, batch_size=1)
+    model.fit(x_train.values, y_train_oh, epochs=50, batch_size=150)
     print(model.evaluate(x_test.values, y_test_oh))
     y_predict = model.predict(x_test)
     y_decode = decode_output(y_predict)
